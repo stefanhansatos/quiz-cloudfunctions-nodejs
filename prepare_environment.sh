@@ -11,8 +11,19 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+export REGION=europe-west3
+export ZONE=europe-west1-b
+
+gcloud config set project $DEVSHELL_PROJECT_ID
+gcloud config set compute/region $REGION
+gcloud config set compute/zone $ZONE
+gcloud config list
+
+echo "Creating default network"
+gcloud -q compute networks create default
+
 echo "Creating App Engine app"
-gcloud app create --region "us-central"
+gcloud app create --region "europe-west"
 
 echo "Making bucket: gs://$DEVSHELL_PROJECT_ID-media"
 gsutil mb gs://$DEVSHELL_PROJECT_ID-media
@@ -33,7 +44,7 @@ gcloud pubsub topics create feedback
 gcloud pubsub topics create answers
 
 echo "Creating Cloud Spanner Instance, Database, and Tables"
-gcloud spanner instances create quiz-instance --config=regional-us-central1 --description="Quiz instance" --nodes=1
+gcloud spanner instances create quiz-instance --config=regional-europe-west3 --description="Quiz instance" --nodes=1
 gcloud spanner databases create quiz-database --instance quiz-instance --ddl "CREATE TABLE Feedback ( feedbackId STRING(100) NOT NULL, email STRING(100), quiz STRING(20), feedback STRING(MAX), rating INT64, score FLOAT64, timestamp INT64 ) PRIMARY KEY (feedbackId); CREATE TABLE Answers (answerId STRING(100) NOT NULL, id INT64, email STRING(60), quiz STRING(20), answer INT64, correct INT64, timestamp INT64) PRIMARY KEY (answerId DESC);"
 
 echo "Enabling Cloud Functions API"
