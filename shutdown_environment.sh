@@ -30,8 +30,5 @@ rm $GOOGLE_APPLICATION_CREDENTIALS
 echo "Deleting bucket: gs://$GCLOUD_BUCKET"
 gsutil rm -r gs://$GCLOUD_BUCKET
 
-echo "Deleting Container Engine cluster"
-gcloud container clusters delete quiz-cluster --zone europe-west3-a
-
 echo "Deleting default network"
 gcloud compute networks delete default
