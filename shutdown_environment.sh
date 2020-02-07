@@ -31,7 +31,7 @@ gcloud config set compute/region $GCLOUD_REGION
 gcloud config set compute/zone $GCLOUD_ZONE
 gcloud config list
 
-echo "Exporting MEDIA_BUCKET, APP_CREDENTIALS"
+echo "Exporting GCLOUD_BUCKET, GOOGLE_APPLICATION_CREDENTIALS"
 export GCLOUD_BUCKET=$GCLOUD_PROJECT-media
 export GOOGLE_APPLICATION_CREDENTIALS=key.json
 

@@ -45,7 +45,7 @@ gcloud config set compute/region $GCLOUD_REGION
 gcloud config set compute/zone $GCLOUD_ZONE
 gcloud config list
 
-echo "Exporting MEDIA_BUCKET, APP_CREDENTIALS"
+echo "Exporting GCLOUD_BUCKET, GOOGLE_APPLICATION_CREDENTIALS"
 export GCLOUD_BUCKET=$GCLOUD_PROJECT-media
 export GOOGLE_APPLICATION_CREDENTIALS=key.json
 
@@ -84,7 +84,7 @@ echo "Enabling Cloud Functions API"
 gcloud services enable cloudfunctions.googleapis.com
 
 echo "Creating Cloud Functions"
-gcloud -q functions deploy process-feedback --runtime nodejs8 --trigger-topic feedback --source ./functions/feedback --stage-bucket $GCLOUD_BUCKET --entry-point subscribe
-gcloud -q functions deploy process-answer --runtime nodejs8 --trigger-topic answers --source ./functions/answer --stage-bucket $GCLOUD_BUCKET --entry-point subscribe
+gcloud -q functions deploy process-feedback --region $GCLOUD_REGION --runtime nodejs8 --trigger-topic feedback --source ./functions/feedback --stage-bucket $GCLOUD_BUCKET --entry-point subscribe
+gcloud -q functions deploy process-answer --region $GCLOUD_REGION --runtime nodejs8 --trigger-topic answers --source ./functions/answer --stage-bucket $GCLOUD_BUCKET --entry-point subscribe
 
 echo "Project ID: $GCLOUD_PROJECT"
