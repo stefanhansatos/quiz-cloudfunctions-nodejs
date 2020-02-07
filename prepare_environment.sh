@@ -64,6 +64,8 @@ gcloud iam service-accounts keys create $GOOGLE_APPLICATION_CREDENTIALS --iam-ac
 
 echo "Setting quiz-account IAM Role"
 gcloud projects add-iam-policy-binding $DEVSHELL_PROJECT_ID --member serviceAccount:quiz-account@$DEVSHELL_PROJECT_ID.iam.gserviceaccount.com --role roles/owner
+gcloud projects add-iam-policy-binding $DEVSHELL_PROJECT_ID --member serviceAccount:quiz-account@$DEVSHELL_PROJECT_ID.iam.gserviceaccount.com --role roles/datastore.owner
+
 
 echo "Installing dependencies"
 npm install -g npm@6.11.3
