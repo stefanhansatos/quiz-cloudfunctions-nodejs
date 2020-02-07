@@ -58,6 +58,13 @@ gcloud app create --region "$GCLOUD_REGION" 2>/dev/null
 echo "Making bucket: gs://$GCLOUD_BUCKET"
 gsutil mb gs://$GCLOUD_BUCKET
 
+echo "Creating quiz-account Service Account"
+gcloud iam service-accounts create quiz-account --display-name "Quiz Account"
+gcloud iam service-accounts keys create $GOOGLE_APPLICATION_CREDENTIALS --iam-account=quiz-account@$DEVSHELL_PROJECT_ID.iam.gserviceaccount.com
+
+echo "Setting quiz-account IAM Role"
+gcloud projects add-iam-policy-binding $DEVSHELL_PROJECT_ID --member serviceAccount:quiz-account@$DEVSHELL_PROJECT_ID.iam.gserviceaccount.com --role roles/owner
+
 echo "Installing dependencies"
 npm install -g npm@6.11.3
 npm update
