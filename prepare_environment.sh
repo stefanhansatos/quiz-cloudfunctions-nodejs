@@ -53,7 +53,7 @@ echo "Creating default network"
 gcloud -q compute networks create default
 
 echo "Creating App Engine app"
-gcloud app create --region "$GCLOUD_REGION"
+gcloud app create --region "$GCLOUD_REGION" 2>/dev/null
 
 echo "Making bucket: gs://$GCLOUD_BUCKET"
 gsutil mb gs://$GCLOUD_BUCKET
